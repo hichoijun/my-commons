@@ -9,9 +9,13 @@ public class test {
 
     public static void main(String[] args) {
 
-        f2();
+        f3();
         
 
+    }
+
+    private static void f3() {
+        System.out.println("abc");
     }
 
     private static void f2() {
