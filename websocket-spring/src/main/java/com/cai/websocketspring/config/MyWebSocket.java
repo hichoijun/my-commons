@@ -1,6 +1,9 @@
 package com.cai.websocketspring.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.server.standard.SpringConfigurator;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -10,9 +13,23 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-@ServerEndpoint(value = "/websocket")
 @Component
+@ServerEndpoint(value = "/websocket", configurator = SpringConfigurator.class)
+//@ServerEndpoint(value = "/websocket")
 public class MyWebSocket {
+
+
+    private final ITest test;
+
+    @Autowired
+    public MyWebSocket(ITest test) {
+
+        this.test = test;
+
+    }
+
+
+
 
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static int onlineCount = 0;
@@ -29,27 +46,30 @@ public class MyWebSocket {
         webSocketSet.add(this);     //加入set中
         addOnlineCount();           //在线数加1
         System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
-        try {
+//        try {
 //            sendMessage("测试");
 
+            System.out.println("1==" + (test == null));
+            System.out.println("2==" + test);
+            System.out.println("3==" + test.hi());
 
-            while(true){
+//            while(true){
+//
+//                if(this.session != null){
+//                    sendMessage("测试=" + System.currentTimeMillis());
+//                    System.out.println("测试=" + System.currentTimeMillis());
+//                }else{
+//                    break;
+//                }
+//
+//                Thread.sleep(1000);
+//            }
 
-                if(this.session != null){
-                    sendMessage("测试=" + System.currentTimeMillis());
-                    System.out.println("测试=" + System.currentTimeMillis());
-                }else{
-                    break;
-                }
-
-                Thread.sleep(1000);
-            }
-
-        } catch (IOException e) {
-            System.out.println("IO异常");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        } catch (IOException e) {
+//            System.out.println("IO异常");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**

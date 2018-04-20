@@ -14,16 +14,16 @@ public class TestController {
   @Value("${server.port}")
   private String port;
 
-  @GetMapping("/hi")
-  public String hi() {
-    MyWebSocket ws = new MyWebSocket();
-    try {
-      ws.sendMessage(System.currentTimeMillis() + "");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return "ok";
-  }
+//  @GetMapping("/hi")
+//  public String hi() {
+//    MyWebSocket ws = new MyWebSocket();
+//    try {
+//      ws.sendMessage(System.currentTimeMillis() + "");
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
+//    return "ok";
+//  }
 
 
 }
